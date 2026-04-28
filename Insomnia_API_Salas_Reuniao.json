@@ -1,0 +1,88 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-04-27T00:00:00.000Z",
+  "resources": [
+    {
+      "_id": "wrk_salas_reuniao",
+      "_type": "workspace",
+      "name": "API Salas de Reunião"
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "parentId": "wrk_salas_reuniao",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080",
+        "token": "COLE_O_TOKEN_AQUI"
+      }
+    },
+    {
+      "_id": "req_login",
+      "_type": "request",
+      "parentId": "wrk_salas_reuniao",
+      "name": "Login",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/auth/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+      },
+      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+    },
+    {
+      "_id": "req_criar_sala",
+      "_type": "request",
+      "parentId": "wrk_salas_reuniao",
+      "name": "Criar Sala",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/salas",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        { "name": "Authorization", "value": "Bearer {{ _.token }}" }
+      ],
+      "body": { "mimeType": "application/json", "text": "{\n  \"nome\": \"Sala Reunião 1\",\n  \"capacidade\": 10,\n  \"localizacao\": \"1º andar\"\n}" }
+    },
+    {
+      "_id": "req_listar_salas",
+      "_type": "request",
+      "parentId": "wrk_salas_reuniao",
+      "name": "Listar Salas",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/salas?page=0&size=10",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{ _.token }}" }]
+    },
+    {
+      "_id": "req_criar_reserva",
+      "_type": "request",
+      "parentId": "wrk_salas_reuniao",
+      "name": "Criar Reserva",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/reservas",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        { "name": "Authorization", "value": "Bearer {{ _.token }}" }
+      ],
+      "body": { "mimeType": "application/json", "text": "{\n  \"salaId\": 1,\n  \"dataHoraInicio\": \"2026-05-10T09:00:00\",\n  \"dataHoraFim\": \"2026-05-10T10:00:00\",\n  \"responsavel\": \"Matheus Ramos\"\n}" }
+    },
+    {
+      "_id": "req_listar_reservas",
+      "_type": "request",
+      "parentId": "wrk_salas_reuniao",
+      "name": "Listar Reservas",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/reservas?page=0&size=10",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{ _.token }}" }]
+    },
+    {
+      "_id": "req_cancelar_reserva",
+      "_type": "request",
+      "parentId": "wrk_salas_reuniao",
+      "name": "Cancelar Reserva",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/api/reservas/1/cancelar",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{ _.token }}" }]
+    }
+  ]
+}
