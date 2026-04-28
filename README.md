@@ -1,6 +1,6 @@
 # API de Salas de Reunião
 
-**Nome:** Matheus Bortolotto  
+**Nome:** MATHEUS BORTOLOTTO  
 **RM:** RM555189
 
 ## Descrição
